@@ -27,8 +27,9 @@ namespace BooklistRazor
         // HERE WE CAN ADD SERVICES
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));  
-
+            services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // this needs to use API
+            services.AddControllersWithViews();
             // .AddRazorRuntimeCompilation()  is added later with NuGet packages - to enable refreshing UI while program running
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }
@@ -58,6 +59,9 @@ namespace BooklistRazor
 
             app.UseEndpoints(endpoints =>
             {
+               // add following for APIs
+                endpoints.MapControllers();
+                
                 endpoints.MapRazorPages();
             });
         }
